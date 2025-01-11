@@ -12,7 +12,10 @@ app = Flask(__name__, template_folder=str(templates_dir))
 @app.route('/')
 def display_csv():
     # Read the CSV file
-    df = pd.read_csv(csv_file)
+    df = pd.read_csv(csv_file, na_values=['', ' '])
+
+    # Replace empty values
+    df = df.fillna('')
 
     # Convert the dataframe to HTML table
     table_html = df.to_html(classes='table table-striped', index=False)
